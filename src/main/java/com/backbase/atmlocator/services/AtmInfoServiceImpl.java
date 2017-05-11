@@ -1,8 +1,9 @@
 package com.backbase.atmlocator.services;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,11 @@ public class AtmInfoServiceImpl implements AtmInfoService {
     if (atmLocationsData.isEmpty())
       atmLocationsData = atmInfoDataService.getATMLocationsData();
 
-    Stream<AtmLocation> ingAtmsStream = atmLocationsData.stream().filter(l -> l.getType().equalsIgnoreCase("ING"));
-
-    if (city != null && city.length() != 0)
-      atmsByCity = ingAtmsStream.filter(l -> l.getAddress().getCity().equalsIgnoreCase(city))
-          .collect(Collectors.toList());
-
+    if (city != null && city.length() != 0) {
+      Stream<AtmLocation> atmsStreams = atmLocationsData.stream()
+          .filter(l -> l.getType().equalsIgnoreCase("ING") && l.getAddress().getCity().equalsIgnoreCase(city));
+      atmsByCity = atmsStreams.collect(toList());
+    }
     return atmsByCity;
   }
 
