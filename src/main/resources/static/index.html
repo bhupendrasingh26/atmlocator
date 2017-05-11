@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="kalahboard.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title>ING ATM Search Service - Locate an ATM in your locality using your city name.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="atmlocatorcontrol.js"></script>
 </head>
-
 <body>
-    
+<div class="container" align="center">
+  <p class="bg-primary">
+     <h1>Locate an ING ATM</h1>
+  </p>
+  <hr class="half-rule"/>
+  <div class="form-inline" >
+    <label for="city">City:</label>
+    <input type="text" class="form-control" id="city">
+    <button type="button" class="btn btn-primary" id="search" >
+      <span class="glyphicon glyphicon-search"></span>
+    </button>
+  </div>
+  <table id="atmstable" class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Owning Bank</th>
+          <th>Street</th>
+          <th>House Number</th>
+          <th>Postal Code</th>
+          <th>City</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+  </table>
+</div>
 </body>
 </html>
