@@ -36,7 +36,6 @@ public class AtmInfoDataServiceImpl implements AtmInfoDataService {
   @Override
   public List<AtmLocation> getATMLocationsData() {
     List<AtmLocation> atmLocations = new ArrayList<AtmLocation>();
-
     try {
       ResponseEntity<String> response = restTemplate.getForEntity(serviceURL, String.class);
       String responseBody = sanatizeResponse(response.getBody());

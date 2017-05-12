@@ -38,10 +38,10 @@ public class AtmInfoServiceImpl implements AtmInfoService {
   public List<AtmLocation> getATMLocationsByCity(String city) {
 
     List<AtmLocation> atmsByCity = new ArrayList<AtmLocation>();
-    
+
     if (atmLocationsData.isEmpty())
       atmLocationsData = atmInfoDataService.getATMLocationsData();
-    
+
     if (city != null && city.length() != 0) {
       Stream<AtmLocation> atmsStreams = atmLocationsData.stream()
           .filter(l -> l.getType().equalsIgnoreCase("ING") && l.getAddress().getCity().equalsIgnoreCase(city));

@@ -13,7 +13,7 @@ public interface AtmInfoDataService {
   /**
    * Communicates with a Web Service and return all the available ATM Locations.
    * 
-   * @return  List of all the ATM Locations available.
+   * @return List of all the ATM Locations available.
    */
   public abstract List<AtmLocation> getATMLocationsData();
 }
