@@ -50,8 +50,8 @@ Build from Source:  You can also run the service by building it from source
 *	Deploy at Tomcat
 
 
-``` ### Configuration:
-Application has following configuration options at application.properties(src/main/resources)
+ ### Configuration:
+``` Application has following configuration options at application.properties(src/main/resources)
 ##### Service configuration settings #####
 ##########################################
 
