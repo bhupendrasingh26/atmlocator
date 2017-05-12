@@ -14,23 +14,24 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
- * This class exposes RESTFul end-point for the 
+ * This class exposes RESTFul end-point for locating ATM by city.
  */
 
 @RestController
-@RequestMapping("/atmlocator")
+
 public class AtmlocatorController {
-  
+
   private final AtmInfoService atmInfoService;
 
   @Autowired
-  public AtmlocatorController( AtmInfoService atmInfoService ) {
+  public AtmlocatorController(AtmInfoService atmInfoService) {
     this.atmInfoService = atmInfoService;
   }
-  
+
   @RequestMapping("/locate")
-  public List<AtmLocation> locateAtms(@RequestParam(value="city") String city) throws JsonParseException, JsonMappingException, IOException {
+  public List<AtmLocation> locateAtms(@RequestParam(value = "city") String city)
+      throws JsonParseException, JsonMappingException, IOException {
     return atmInfoService.getATMLocationsByCity(city);
   }
-  
+
 }

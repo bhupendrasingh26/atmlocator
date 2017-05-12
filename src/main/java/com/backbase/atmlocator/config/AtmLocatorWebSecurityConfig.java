@@ -8,19 +8,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * 
+ * Configuration class for enabling web security
+ *
+ */
+
 @Configuration
 @EnableWebSecurity
 public class AtmLocatorWebSecurityConfig extends WebSecurityConfigurerAdapter {
-  
+
   @Value("${defaultUser}")
   private String defaultUserName;
-  
+
   @Value("${defaultPassword}")
   private String defaultPassword;
-  
+
   @Value("${role}")
   private String role;
-  
+
   @Value("${contextURI}")
   private String context;
 

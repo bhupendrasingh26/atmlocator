@@ -33,14 +33,14 @@ import com.backbase.atmlocator.services.AtmInfoServiceImpl;
 public class AtmlocatorControllerTest {
 
   @Test
-  public final void testLocateAtms() throws Exception {
+  public final void testLocateAtmsByCity() throws Exception {
     List<AtmLocation> locations = createAtmlocationList();
     AtmInfoService mockAtmInfoService = mock(AtmInfoServiceImpl.class);
     when(mockAtmInfoService.getATMLocationsByCity("Putten")).thenReturn(locations);
 
     AtmlocatorController controller = new AtmlocatorController(mockAtmInfoService);
     MockMvc mockMvc = standaloneSetup(controller).build();
-    mockMvc.perform(get("/atmlocator/locate?city=Putten")).andExpect(status().isOk())
+    mockMvc.perform(get("/locate?city=Putten")).andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("$", hasSize(2)))
         .andDo(print());
 
@@ -54,7 +54,7 @@ public class AtmlocatorControllerTest {
 
     AtmlocatorController controller = new AtmlocatorController(mockAtmInfoService);
     MockMvc mockMvc = standaloneSetup(controller).build();
-    mockMvc.perform(get("/atmlocator/locate?city=Deventer")).andExpect(status().isOk())
+    mockMvc.perform(get("/locate?city=Deventer")).andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("$", hasSize(0)))
         .andDo(print());
 
@@ -66,7 +66,7 @@ public class AtmlocatorControllerTest {
     AtmInfoService mockAtmInfoService = mock(AtmInfoServiceImpl.class);
     AtmlocatorController controller = new AtmlocatorController(mockAtmInfoService);
     MockMvc mockMvc = standaloneSetup(controller).build();
-    mockMvc.perform(get("/atmlocator/locate?cit=Deventer")).andExpect(status().is4xxClientError()).andDo(print());
+    mockMvc.perform(get("/locate?cit=Deventer")).andExpect(status().is4xxClientError()).andDo(print());
 
   }
 

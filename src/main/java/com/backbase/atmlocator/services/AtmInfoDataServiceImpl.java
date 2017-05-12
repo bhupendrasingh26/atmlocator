@@ -14,6 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import com.backbase.atmlocator.model.AtmLocation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Implementation Class for AtmInfoDataService.
+ *
+ */
 @Component
 public class AtmInfoDataServiceImpl implements AtmInfoDataService {
 
@@ -23,6 +27,12 @@ public class AtmInfoDataServiceImpl implements AtmInfoDataService {
   @Autowired
   private RestTemplate restTemplate;
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.backbase.atmlocator.services.AtmInfoDataService#getATMLocationsData()
+   */
   @Override
   public List<AtmLocation> getATMLocationsData() {
     List<AtmLocation> atmLocations = new ArrayList<AtmLocation>();
@@ -39,6 +49,13 @@ public class AtmInfoDataServiceImpl implements AtmInfoDataService {
     return atmLocations;
   }
 
+  /**
+   * Method skips unwanted initial characters from the JSON-Response and return
+   * a well formed JSON as String.
+   * 
+   * @param responseBody
+   * @return Well form JSON as string.
+   */
   private String sanatizeResponse(String responseBody) {
     return responseBody.substring(responseBody.indexOf("["));
   }
