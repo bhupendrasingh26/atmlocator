@@ -27,7 +27,7 @@ a RESTful Service to locate ING ATMs in a Dutch City
 *	Copy atmlocator.war to tomcat webapps directory.
 *	Test Service end-point: 
 
-```$curl -u admin:admin123 --request GET 'http://localhost:8080/atmlocator/locate?city=Deventer'```
+   ```$curl -u admin:admin123 --request GET 'http://localhost:8080/atmlocator/locate?city=Deventer'```
 
 
 * Go to browser and type:  http://localhost:8080/atmlocator
