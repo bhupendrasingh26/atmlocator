@@ -15,109 +15,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class AtmLocationTestHelper {
 
-  public static List<AtmLocation> createAtmlocationNonINGDataList() {
+  public static List<AtmLocation> createAtmlocationDataList(int count, String type, String city) {
     List<AtmLocation> locations = new ArrayList<AtmLocation>();
-
-    Geolocation glocaton4 = new Geolocation();
-    glocaton4.setLat("52.260025");
-    glocaton4.setLng("5.609934");
-
-    Address address4 = new Address();
-    address4.setGeoLocation(glocaton4);
-    address4.setCity("Putten");
-    address4.setHousenumber("2");
-    address4.setStreet("Voorthuizerstraat");
-    address4.setPostalcode("3881 SH");
-
-    AtmLocation location4 = new AtmLocation();
-    location4.setAddress(address4);
-    location4.setDistance("0");
-    location4.setType("HSBC");
-
-    locations.add(location4);
-
-    return locations;
-  }
-
-  public static List<AtmLocation> createAtmlocationDataList() {
-    List<AtmLocation> locations = new ArrayList<AtmLocation>();
-
-    Geolocation glocaton1 = new Geolocation();
-    glocaton1.setLat("52.2605422");
-    glocaton1.setLng("5.6051248");
-
-    Address address1 = new Address();
-    address1.setGeoLocation(glocaton1);
-    address1.setCity("Putten");
-    address1.setHousenumber("34");
-    address1.setStreet("Dorpsstraat");
-    address1.setPostalcode("3881 BD");
-
-    AtmLocation location1 = new AtmLocation();
-    location1.setAddress(address1);
-    location1.setDistance("0");
-    location1.setType("ING");
-
-    Geolocation glocaton2 = new Geolocation();
-    glocaton2.setLat("52.260025");
-    glocaton2.setLng("5.609934");
-
-    Address address2 = new Address();
-    address2.setGeoLocation(glocaton2);
-    address2.setCity("Putten");
-    address2.setHousenumber("2");
-    address2.setStreet("Voorthuizerstraat");
-    address2.setPostalcode("3881 SH");
-
-    AtmLocation location2 = new AtmLocation();
-    location2.setAddress(address2);
-    location2.setDistance("0");
-    location2.setType("ING");
-
-    Geolocation glocaton3 = new Geolocation();
-    glocaton3.setLat("52.260025");
-    glocaton3.setLng("5.609934");
-
-    Address address3 = new Address();
-    address3.setGeoLocation(glocaton3);
-    address3.setCity("Deventer");
-    address3.setHousenumber("2");
-    address3.setStreet("Voorthuizerstraat");
-    address3.setPostalcode("3881 SH");
-
-    AtmLocation location3 = new AtmLocation();
-    location3.setAddress(address3);
-    location3.setDistance("0");
-    location3.setType("ING");
-
-    Geolocation glocaton4 = new Geolocation();
-    glocaton4.setLat("52.260025");
-    glocaton4.setLng("5.609934");
-
-    Address address4 = new Address();
-    address4.setGeoLocation(glocaton4);
-    address4.setCity("Putten");
-    address4.setHousenumber("2");
-    address4.setStreet("Voorthuizerstraat");
-    address4.setPostalcode("3881 SH");
-
-    AtmLocation location4 = new AtmLocation();
-    location4.setAddress(address4);
-    location4.setDistance("0");
-    location4.setType("HSBC");
-
-    locations.add(location1);
-    locations.add(location2);
-    locations.add(location3);
-    locations.add(location4);
-
+    for (int i = 1; i <= count; i++) {
+      Geolocation glocaton = new Geolocation();
+      glocaton.setLat("lat-" + i);
+      glocaton.setLng("lng-" + i);
+      Address address = new Address();
+      address.setGeoLocation(glocaton);
+      address.setCity(city);
+      address.setHousenumber("House No " + i);
+      address.setStreet("Street " + i);
+      address.setPostalcode("Postal Code" + i);
+      AtmLocation location = new AtmLocation();
+      location.setAddress(address);
+      location.setDistance("0");
+      location.setType(type);
+      locations.add(location);
+    }
     return locations;
   }
 
   public static String getJSONResponseData() {
     String jsonLocationsInString = null;
-    List<AtmLocation> data = createAtmlocationDataList();
-    AtmLocation[] locations = createAtmlocationDataList().toArray(new AtmLocation[data.size()]);
+    List<AtmLocation> data = createAtmlocationDataList(100, "Any Type", "Any Dutch City");
+    AtmLocation[] locations = data.toArray(new AtmLocation[data.size()]);
     ObjectMapper mapper = new ObjectMapper();
     try {
       jsonLocationsInString = mapper.writeValueAsString(locations);

@@ -16,8 +16,6 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 
-@ComponentScan
-@EnableAutoConfiguration
 @SpringBootApplication
 public class AtmlocatorApplication extends SpringBootServletInitializer {
 

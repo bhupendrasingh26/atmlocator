@@ -1,7 +1,6 @@
 package com.backbase.atmlocator.services;
 
 import static com.backbase.atmlocator.AtmLocationTestHelper.createAtmlocationDataList;
-import static com.backbase.atmlocator.AtmLocationTestHelper.createAtmlocationNonINGDataList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -18,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.backbase.atmlocator.model.AtmLocation;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-
 public class AtmInfoServiceImplTest {
 
   @Mock
@@ -33,30 +31,61 @@ public class AtmInfoServiceImplTest {
   }
 
   @Test
-  public final void testGetATMLocationsByCityPutten() {
-    List<AtmLocation> locationData = createAtmlocationDataList();
+  public final void testGetATMLocationsByCity() {
+    List<AtmLocation> locationData = createAtmlocationDataList(10, "ING", "Putten");
+    locationData.addAll(createAtmlocationDataList(20, "ING", "Deventer"));
+    locationData.addAll(createAtmlocationDataList(10, "HSBC", "Putten"));
     when(atmInfoDataService.getATMLocationsData()).thenReturn(locationData);
     List<AtmLocation> locationDataByCity = atmInfoService.getATMLocationsByCity("Putten");
-    assertEquals(2, locationDataByCity.size());
+    assertEquals(10, locationDataByCity.size());
+    assertEquals("Putten", locationDataByCity.get(0).getAddress().getCity());
+  }
 
+  @Test
+  public final void testGetATMLocationsByCityForCityNameAndType() {
+    List<AtmLocation> locationData = createAtmlocationDataList(10, "ING", "Putten");
+    locationData.addAll(createAtmlocationDataList(20, "ING", "Deventer"));
+    locationData.addAll(createAtmlocationDataList(10, "HSBC", "Putten"));
+    when(atmInfoDataService.getATMLocationsData()).thenReturn(locationData);
+    List<AtmLocation> locationDataByCity = atmInfoService.getATMLocationsByCity("Putten");
+    assertEquals(10, locationDataByCity.size());
+    assertEquals("Putten", locationDataByCity.get(0).getAddress().getCity());
+    assertEquals("ING", locationDataByCity.get(0).getType());
   }
 
   @Test
   public final void testGetATMLocationsByCityDeventer() {
-    List<AtmLocation> locationData = createAtmlocationDataList();
+    List<AtmLocation> locationData = createAtmlocationDataList(10, "ING", "Putten");
+    locationData.addAll(createAtmlocationDataList(10, "ING", "Putten"));
+    locationData.addAll(createAtmlocationDataList(20, "ING", "Deventer"));
+    locationData.addAll(createAtmlocationDataList(10, "HSBC", "Putten"));
     when(atmInfoDataService.getATMLocationsData()).thenReturn(locationData);
     List<AtmLocation> locationDataByCity = atmInfoService.getATMLocationsByCity("Deventer");
-    assertEquals(1, locationDataByCity.size());
-
+    assertEquals(20, locationDataByCity.size());
+    assertEquals("Deventer", locationDataByCity.get(0).getAddress().getCity());
   }
 
   @Test
   public final void testGetATMLocationsByCityTypeOnlyING() {
-    List<AtmLocation> locationData = createAtmlocationNonINGDataList();
+    List<AtmLocation> locationData = createAtmlocationDataList(10, "HSBC", "Putten");
+    when(atmInfoDataService.getATMLocationsData()).thenReturn(locationData);
+    List<AtmLocation> locationDataByCity = atmInfoService.getATMLocationsByCity("Putten");
+    assertEquals(0, locationDataByCity.size());
+  }
+
+  @Test
+  public final void testGetATMLocationsByCityCityNameEmpty() {
+    List<AtmLocation> locationData = createAtmlocationDataList(10, "ING", "Putten");
     when(atmInfoDataService.getATMLocationsData()).thenReturn(locationData);
     List<AtmLocation> locationDataByCity = atmInfoService.getATMLocationsByCity("Deventer");
     assertEquals(0, locationDataByCity.size());
-
   }
 
+  @Test
+  public final void testGetATMLocationsByCityCityNameNull() {
+    List<AtmLocation> locationData = createAtmlocationDataList(10, "ING", "Putten");
+    when(atmInfoDataService.getATMLocationsData()).thenReturn(locationData);
+    List<AtmLocation> locationDataByCity = atmInfoService.getATMLocationsByCity(null);
+    assertEquals(0, locationDataByCity.size());
+  }
 }

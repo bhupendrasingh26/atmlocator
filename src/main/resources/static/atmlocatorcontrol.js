@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			$('#search').trigger('click');
+		}
+	});
+
 	$('#search').click(function() {
 		var city = $('#city').val();
 		$.ajax({
